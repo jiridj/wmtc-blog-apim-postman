@@ -33,8 +33,8 @@ jobs:
       - name: create report folder
         run: mkdir -p test-results
       - name: run newman
-        run: newman run test_user_management.json -r htmlextra --reporter-htmlextra-export test-results/htmlreport.html > test-results/runreport1.html
+        run: newman run test_user_management.json -r htmlextra
       - uses: actions/upload-artifact@v3
         with:
-          name: integration test results
-          path: test-results
+          name: integration-tests
+          path: test-results/*.html
