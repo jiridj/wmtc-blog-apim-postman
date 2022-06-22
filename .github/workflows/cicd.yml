@@ -33,7 +33,7 @@ jobs:
           npm install -g newman-reporter-htmlextra
       - name: create report folder
         run: mkdir -p test-results
-      - name: run newman
+      - name: run user management tests
         run: newman run test_user_management.json -r htmlextra
       - uses: actions/upload-artifact@v3
         with:
