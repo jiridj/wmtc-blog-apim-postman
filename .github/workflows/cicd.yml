@@ -15,11 +15,12 @@ jobs:
           apigw-url: ${{ secrets.APIGW_URL }}
           apigw-username: ${{ secrets.APIGW_USERNAME }}
           apigw-password: ${{ secrets.APIGW_PASSWORD }}
-          api-spec: swagger.json
+          api-spec: openapi.json
           set-active: true
           debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
   
   integration-tests:
+    needs: [ deploy-test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
