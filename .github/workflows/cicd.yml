@@ -38,4 +38,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: integration-tests
-          path: test-results/*.html
+          path: test-results
