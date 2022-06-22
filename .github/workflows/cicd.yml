@@ -34,11 +34,11 @@ jobs:
       - name: run pet management tests
         env:
           collectionId: 19018100-f1a69c50-8013-4cde-83d9-c6d51932bb92
-        run: newman run "https://api.getpostman.com/collections/${collectionId}?apiKey=${{secrets.POSTMAN_API_KEY}}" -r htmlextra
+        run: newman run "https://api.getpostman.com/collections/${collectionId}?apikey=${{secrets.POSTMAN_API_KEY}}" -r htmlextra
       - name: run user management tests
         env:
           collectionId: 19018100-deb57317-4821-47ec-bba2-f81b8ef3449d
-        run: newman run "https://api.getpostman.com/collections/${collectionId}?apiKey=${{secrets.POSTMAN_API_KEY}}" -r htmlextra
+        run: newman run "https://api.getpostman.com/collections/${collectionId}?apikey=${{secrets.POSTMAN_API_KEY}}" -r htmlextra
       - uses: actions/upload-artifact@v3
         with:
           name: integration-tests
