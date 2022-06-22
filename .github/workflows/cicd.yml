@@ -1,0 +1,40 @@
+name: cicd
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jiridj/wm-apigw-actions-register-api@v1
+        with: 
+          apigw-url: ${{ secrets.APIGW_URL }}
+          apigw-username: ${{ secrets.APIGW_USERNAME }}
+          apigw-password: ${{ secrets.APIGW_PASSWORD }}
+          api-spec: swagger.json
+          set-active: true
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
+  
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: install newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+      - name: create report folder
+        run: mkdir -p test-results
+      - name: run newman
+        run: newman run test_user_management.json -r htmlextra --reporter-htmlextra-export test-results/htmlreport.html > test-results/runreport1.html
+      - uses: actions/upload-artifact@v3
+        with:
+          name: integration test results
+          path: test-results
